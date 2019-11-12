@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Welcome to My Page</title>
+
+	<script language="javascript">
+		
+		document.write("<h1>JSON Array Objects</h1>");
+		
+		var books={ "Networks": [
+		{   "Name":"Forouzan","Price":"2000"},
+		{   "Name":"Tantanum","Price":"2500"}
+			],
+		"Database" : [
+		{
+			"Name":"Korth and Sudarshan","Price":"1000"
+		},
+		{
+			"Name":"TechMax   ","Price":"1000"	
+		}]
+		}
+		var i=0;
+		for (i = 0; i < books.Networks.length ; i++) {
+			document.write("i ="+i+" "+books.Networks[i].Name+"<br>");
+		}
+		for (i = 0; i < books.Database.length ; i++) {
+			document.write("i ="+i+" "+books.Database[i].Name+"<br>");
+		}
+	</script>
+</head>
+<body>
+
+
+</body>
+</html>

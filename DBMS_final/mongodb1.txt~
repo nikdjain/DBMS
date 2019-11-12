@@ -1,0 +1,120 @@
+
+
+> use te3233db;
+switched to db te3233db
+> db.createCollection("Student");
+{ "ok" : 1 }
+
+
+> show collections;
+Student
+system.indexes
+
+
+> db.Student.insert( { Name : "Siddhesh", RollNo:"31233", Division:"Te" });
+WriteResult({ "nInserted" : 1 })
+
+> db.Student.insert( {Address:"Pune",Age:20});
+WriteResult({ "nInserted" : 1 })
+
+> db.Student.find();
+{ "_id" : ObjectId("5d67520f6d44dd52b6375548"), "Name" : "Siddhesh", "RollNo" : "31233", "Division" : "Te" }
+{ "_id" : ObjectId("5d6752546d44dd52b6375549"), "Address" : "Pune", "Age" : 20 }
+
+> db.Student.find().pretty();
+{
+	"_id" : ObjectId("5d67520f6d44dd52b6375548"),
+	"Name" : "Siddhesh",
+	"RollNo" : "31233",
+	"Division" : "Te"
+}
+{
+	"_id" : ObjectId("5d6752546d44dd52b6375549"),
+	"Address" : "Pune",
+	"Age" : 20
+}
+
+> db.Student.find( { }, { Name:1, RollNo:1, _id:0,Division:1,Address:true,Age:true } );
+{ "Name" : "Siddhesh", "RollNo" : "31233", "Division" : "Te" }
+{ "Address" : "Pune", "Age" : 20 }
+
+> db.Student.remove({RollNo:"31233"});
+WriteResult({ "nRemoved" : 1 })
+
+> db.Student.find();
+{ "_id" : ObjectId("5d6752546d44dd52b6375549"), "Address" : "Pune", "Age" : 20 }
+
+
+> db.Student.update( { Address:"Pune"}, { $set:{ Address:"Ahmednagar"} } );
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.Student.find().pretty();
+{
+	"_id" : ObjectId("5d6752546d44dd52b6375549"),
+	"Address" : "Ahmednagar",
+	"Age" : 20
+} 
+
+
+> db.Student.save({ _id:1001,Name:"Siddhesh",RollNo:31233,Division:"Te"});
+WriteResult({ "nMatched" : 0, "nUpserted" : 1, "nModified" : 0, "_id" : 1001 })
+> db.Student.find().pretty();
+{
+	"_id" : ObjectId("5d6752546d44dd52b6375549"),
+	"Address" : "Ahmednagar",
+	"Age" : 20
+}
+{ "_id" : 1001, "Name" : "Siddhesh", "RollNo" : 31233, "Division" : "Te" }
+
+
+> db.Student.save({Name:"Siddhesh",RollNo:31233,Division:"Te"});
+WriteResult({ "nInserted" : 1 })
+> db.Student.find().pretty();
+{
+	"_id" : ObjectId("5d6752546d44dd52b6375549"),
+	"Address" : "Ahmednagar",
+	"Age" : 20
+}
+{ "_id" : 1001, "Name" : "Siddhesh", "RollNo" : 31233, "Division" : "Te" }
+{
+	"_id" : ObjectId("5d6f4cc90fb92d6b4aabe886"),
+	"Name" : "Siddhesh",
+	"RollNo" : 31233,
+	"Division" : "Te"
+}
+
+> db.Student.find({ $and:[ {Name:"Siddhesh"},{RollNo:31233},{Division:"Te"}]});
+{ "_id" : 1001, "Name" : "Siddhesh", "RollNo" : 31233, "Division" : "Te" }
+{ "_id" : ObjectId("5d6f4cc90fb92d6b4aabe886"), "Name" : "Siddhesh", "RollNo" : 31233, "Division" : "Te" }
+
+
+> db.Student.find().pretty();
+{
+	"_id" : ObjectId("5d6752546d44dd52b6375549"),
+	"Address" : "Ahmednagar",
+	"Age" : 20
+}
+{ "_id" : 1001, "Name" : "Siddhesh", "RollNo" : 31233, "Division" : "Te" }
+{
+	"_id" : ObjectId("5d6f4cc90fb92d6b4aabe886"),
+	"Name" : "Siddhesh",
+	"RollNo" : 31233,
+	"Division" : "Te"
+}
+{
+	"_id" : ObjectId("5d6f53baf35a6f323660a2e8"),
+	"Address" : "Ahmedngar",
+	"Age" : 25
+}
+> db.Student.find({"Age": { $not: {$lt : 21}}}).pretty();
+{ "_id" : 1001, "Name" : "Siddhesh", "RollNo" : 31233, "Division" : "Te" }
+{
+	"_id" : ObjectId("5d6f4cc90fb92d6b4aabe886"),
+	"Name" : "Siddhesh",
+	"RollNo" : 31233,
+	"Division" : "Te"
+}
+{
+	"_id" : ObjectId("5d6f53baf35a6f323660a2e8"),
+	"Address" : "Ahmedngar",
+	"Age" : 25
+}

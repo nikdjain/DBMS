@@ -1,0 +1,67 @@
+﻿
+//Indexing in MongoDB
+
+>  db.createCollection("Employee");
+{ "ok" : 1 }
+> db.Employee.insert({EmployeeName:"Joe",ECountry:"USA",Eid:1});
+WriteResult({ "nInserted" : 1 })
+> db.Employee.insert({EmployeeName:"Ram",ECountry:"India",Eid:5});
+WriteResult({ "nInserted" : 1 })
+
+
+> db.Employee.find().pretty();
+{
+	"_id" : ObjectId("5d6f59a0dcef6da598ff1e7b"),
+	"EmployeeName" : "Joe",
+	"ECountry" : "USA",
+	"Eid" : 1
+}
+{
+	"_id" : ObjectId("5d6f59b0dcef6da598ff1e7c"),
+	"EmployeeName" : "Ram",
+	"ECountry" : "India",
+	"Eid" : 5
+}
+
+> db.Employee.createIndex({Eid:1});
+{
+	"createdCollectionAutomatically" : false,
+	"numIndexesBefore" : 1,
+	"numIndexesAfter" : 2,
+	"ok" : 1
+}
+> db.Employee.getIndexes();
+[
+	{
+		"v" : 1,
+		"key" : {
+			"_id" : 1
+		},
+		"name" : "_id_",
+		"ns" : "te3233db.Employee"
+	},
+	{
+		"v" : 1,
+		"key" : {
+			"Eid" : 1
+		},
+		"name" : "Eid_1",
+		"ns" : "te3233db.Employee"
+	}
+]
+
+
+> db.Employee.dropIndex({Eid:1});
+{ "nIndexesWas" : 2, "ok" : 1 }
+
+> db.Employee.getIndexes();
+[
+	{
+		"v" : 1,
+		"key" : {
+			"_id" : 1
+		},
+		"name" : "_id_",
+		"ns" : "te3233db.Employee"
+	}
+]

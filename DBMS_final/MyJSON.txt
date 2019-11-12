@@ -1,0 +1,25 @@
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
+
+public class MyJSON {
+
+	public static void main(String[] args) {
+		
+		JSONObject myObject=new JSONObject();
+		myObject.put("Siddhesh","31233");
+		myObject.put("Siddh","31235");
+		myObject.put("Sesh","31353");
+		myObject.put("Geet","31465");
+		
+		System.out.println(myObject);
+		
+		JSONArray myArray=new JSONArray();
+		myArray.add(0,"Siddhesh");
+		myArray.add(1,"Atharv");
+		myArray.add(2,"Geet");
+		
+		
+		System.out.println(myArray);
+	}
+}
